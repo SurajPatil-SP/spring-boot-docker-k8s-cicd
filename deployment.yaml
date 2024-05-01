@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: spring-boot-docker-k8s-deployment
+  namespace: k8s-backend-app
+spec:
+  selector:
+    matchLabels:
+      app: spring-boot-docker-k8s
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: spring-boot-docker-k8s
+    spec:
+      containers:
+        - name: spring-boot-k8s-app-container
+          image: spring-boot-k8s-app:2.0 # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
